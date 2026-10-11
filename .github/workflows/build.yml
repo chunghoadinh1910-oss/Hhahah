@@ -27,23 +27,22 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y bc bison flex libssl-dev libelf-dev \
-            python3 python3-pip zip unzip build-essential git curl
+            python3 python3-pip zip unzip build-essential git curl wget
 
       - name: Download and set up Clang toolchain
         run: |
           mkdir -p $HOME/toolchains
           cd $HOME/toolchains
-          # Tải AOSP Clang r563880c (phù hợp với kernel 4.14 Exynos 9825)
-          wget -q https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master/clang-r563880c.tar.gz
-          mkdir -p clang-r563880c
-          tar -xzf clang-r563880c.tar.gz -C clang-r563880c
-          echo "$HOME/toolchains/clang-r563880c/bin" >> $GITHUB_PATH
+          # Đã sửa thành phiên bản clang-r522817 ổn định
+          wget -q https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/master/clang-r522817.tar.gz
+          mkdir -p clang-r522817
+          tar -xzf clang-r522817.tar.gz -C clang-r522817
+          echo "$HOME/toolchains/clang-r522817/bin" >> $GITHUB_PATH
 
       - name: Verify KernelSU-Next is embedded
         run: |
           if [ -d "KernelSU" ]; then
             echo "✅ KernelSU-Next directory found"
-            cat KernelSU/kernel/Makefile 2>/dev/null | head -5 || true
           else
             echo "❌ KernelSU-Next NOT found! Please run the add_ksu workflow first."
             exit 1
