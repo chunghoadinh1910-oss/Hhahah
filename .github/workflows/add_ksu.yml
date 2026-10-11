@@ -1,0 +1,25 @@
+name: Add KernelSU-Next v3.4.1
+
+on:
+  workflow_dispatch:
+
+jobs:
+  add_ksu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add KernelSU-Next v3.4.1
+        run: |
+          rm -rf KernelSU
+          git clone --depth=1 --branch v3.4.1-legacy https://github.com/KernelSU-Next/KernelSU-Next.git KernelSU
+          bash KernelSU/tools/init_kernelsu.sh .
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add -A
+          git diff --staged --quiet || git commit -m "Add KernelSU-Next v3.4.1-legacy"
+          git push
