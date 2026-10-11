@@ -13,7 +13,7 @@ jobs:
       - name: Add KernelSU-Next v3.4.1
         run: |
           rm -rf KernelSU
-          git clone --depth=1 --branch v3.4.1-legacy https://github.com/KernelSU-Next/KernelSU-Next.git KernelSU
+          git clone --depth=1 --branch v3.4.0-legacy https://github.com/KernelSU-Next/KernelSU-Next.git KernelSU
           bash KernelSU/tools/init_kernelsu.sh .
 
       - name: Commit and Push changes
