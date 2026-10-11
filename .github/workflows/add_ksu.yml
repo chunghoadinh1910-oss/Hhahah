@@ -1,4 +1,4 @@
-name: Add KernelSU-Next v3.4.1
+name: Add KernelSU-Next v3.4.0-legacy
 
 on:
   workflow_dispatch:
@@ -10,16 +10,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Add KernelSU-Next v3.4.1
+      - name: Add KernelSU-Next v3.4.0-legacy
         run: |
-          rm -rf KernelSU
-          git clone --depth=1 --branch v3.4.0-legacy https://github.com/KernelSU-Next/KernelSU-Next.git KernelSU
-          bash KernelSU/tools/init_kernelsu.sh .
+          # Tải script setup.sh chính thức và chạy với tham số legacy
+          curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -s legacy
 
       - name: Commit and Push changes
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add -A
-          git diff --staged --quiet || git commit -m "Add KernelSU-Next v3.4.1-legacy"
+          git diff --staged --quiet || git commit -m "Add KernelSU-Next v3.4.0-legacy"
           git push
